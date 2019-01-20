@@ -142,7 +142,7 @@ class App extends Component {
           <AppBar position="static">
             <Toolbar>
               <div className="grow"></div>
-              <Typography variant="h4" color="inherit" align="center">
+              <Typography variant="h4" color="inherit" align="center" style={{paddingLeft: "70px"}}>
                 Pill Bot
               </Typography>
               <div className="grow"></div>
