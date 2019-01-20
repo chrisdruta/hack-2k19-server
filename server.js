@@ -94,6 +94,7 @@ app.post('/prescription', (req, res) => {
 });
 
 app.get('/logs', (req, res) => {
+  console.log(req.headers);
   if (!req.headers['x-auth']) {
     return res.status(401).json({
       success: false,
@@ -174,7 +175,6 @@ app.post('/logs', (req, res) => {
 });
 
 app.get('/machineTotals', (req, res) => {
-  console.log(req.headers);
   if (!req.headers['x-auth']) {
     return res.status(401).json({
       success: false,
