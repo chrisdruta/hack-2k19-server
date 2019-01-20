@@ -59,7 +59,7 @@ app.post('/prescription', (req, res) => {
     });
   }
 
-  if (!req.body.red || !req.body.blue)
+  if (req.body.red === null || req.body.blue === null)
     return res.status(400).json({
       success: false,
       error: "Not a proper prescription"
@@ -130,8 +130,8 @@ app.post('/logs', (req, res) => {
       error: "Authentification parameter(s) missing"
     });
   }
-
-  if (!req.body.red || !req.body.blue || !req.body.time || !req.body.isPrescription)
+  
+  if (req.body.red === null || req.body.blue === null || req.body.time === null || req.body.isPrescription === null)
     return res.status(400).json({
       success: false,
       error: "Missing required attributes for log object"
@@ -208,7 +208,7 @@ app.get('/machineTotals', (req, res) => {
 });
 
 app.post('/account', (req, res) => {
-  if (!req.body.username)
+  if (req.body.username === null)
     return res.status(401).json({
       success: false,
       error: "Missing username in body"
@@ -234,7 +234,7 @@ app.post('/account', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  if (!req.body.username || !req.body.red || !req.body.blue)
+  if (req.body.username === null || req.body.red === null || req.body.blue === null)
     return res.status(400).json({
       success: false,
       error: "Missing required parameters from body"
