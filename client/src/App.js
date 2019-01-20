@@ -115,9 +115,11 @@ class App extends Component {
   render() {
     var data;
     if (this.state.isLoggedIn) {
-      data = this.getAccountInfo();
-      console.log("render")
-      console.log(data)
+      //data = await this.getAccountInfo();
+      this.getAccountInfo()
+      .then((res) => {console.log(res)})
+      .catch(err => {console.log(err)})
+      // console.log(data)
     }
 
 
