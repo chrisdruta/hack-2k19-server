@@ -214,7 +214,9 @@ app.post('/account', (req, res) => {
       error: "Missing username in body"
     });
 
-  User.findOne({username: req.body.username}, (err, user) => {
+  let lowercase = req.body.username.toLowerCase();
+
+  User.findOne({username: lowercase}, (err, user) => {
     if (err)
       return res.status(401).json({
         success: false,
@@ -240,9 +242,11 @@ app.post('/register', (req, res) => {
       error: "Missing required parameters from body"
     });
 
-  User.findOneAndDelete({username: req.body.username}, (err, removedUser) => {
+  let lowercase = req.body.username.toLowerCase();
+
+  User.findOneAndDelete({username: lowercase}, (err, removedUser) => {
     const newUser = new User({
-      username: req.body.username,
+      username: lowercase,
       log: [],
       prescription: {
         red: req.body.red,

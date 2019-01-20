@@ -91,7 +91,7 @@ class App extends Component {
   };
 
   handleLogout = () => {
-    this.setState({isLoggedIn: false});
+    this.setState({isLoggedIn: false, name: "demo", red: "", blue: ""});
   };
 
   handleRegister = async () => {
@@ -119,7 +119,6 @@ class App extends Component {
       this.getAccountInfo()
       .then((res) => {this.setState({data: res})})
       .catch(err => {console.log(err)})
-      // console.log(data)
     }
 
     return (
@@ -207,19 +206,19 @@ class App extends Component {
                   <TableRow>
                     <TableCell>Prescription</TableCell>
                     <TableCell align="right">Dosage</TableCell>
-                    <TableCell align="right">Renewal</TableCell>
+                    <TableCell align="right">Remaining</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
                     <TableCell>Red</TableCell>
                     <TableCell align="right">{this.state.data ? this.state.data.prescription.red : null}</TableCell>
-                    <TableCell align="right">Shoop</TableCell>
+                    <TableCell align="right">{this.state.data ? this.state.data.qty.red : null}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Blue</TableCell>
                     <TableCell align="right">{this.state.data ? this.state.data.prescription.blue : null}</TableCell>
-                    <TableCell align="right">Whoop</TableCell>
+                    <TableCell align="right">{this.state.data ? this.state.data.qty.blue : null}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
