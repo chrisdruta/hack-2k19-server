@@ -75,7 +75,7 @@ class App extends Component {
   };
 
   handleLogin = async () => {
-    const response = await fetch("/login", {
+    const response = await fetch("/account", {
       method: "POST",
       headers: {
         'Accept': 'application/json',
