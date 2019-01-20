@@ -215,6 +215,7 @@ app.post('/account', (req, res) => {
     });
 
   let lowercase = req.body.username.toLowerCase();
+  console.log(lowercase)
 
   User.findOne({username: lowercase}, (err, user) => {
     if (err)
