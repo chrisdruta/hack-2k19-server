@@ -9,6 +9,12 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Grow from '@material-ui/core/Grow';
 import Divider from '@material-ui/core/Divider';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 
 import logo from "./logo_v1.png";
 
@@ -23,35 +29,43 @@ class App extends Component {
     blue: ""
   };
 
-  componentDidMount() {
-    // Call our fetch function below once the component mounts
-    // this.callBackendAPI()
-    //   .then(res => this.setState({ data: res.express }))
-    //   .catch(err => console.log(err));
-  }
-
   getAccountInfo = async () => {
 
-    
+    const data = {}
+    let response, body;
 
-    const headers =  {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'x-auth': base64.encode(this.state.name)
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-auth': base64.encode(this.state.name)
+      }
     };
 
-    let response = await fetch("/logs", {
-      method: "GET",
-      headers: headers
-    });
-
+    response = await fetch("/logs", requestOptions);
     if (response.status === 200) {
-      const body = await response.json();
-      return body.logs;
+      body = await response.json();
+      data.logs = body.logs;
     }
-    else {
-      return [];
+
+    response = await fetch("/machineTotals", requestOptions);
+    if (response.status === 200) {
+      body = await response.json();
+      data.qty = {};
+      data.qty.red = body.red;
+      data.qty.blue = body.blue;
     }
+
+    response = await fetch("/prescription", requestOptions);
+    if (response.status === 200) {
+      body = await response.json();
+      data.prescription = {};
+      data.prescription.red = body.red;
+      data.prescription.blue = body.blue;
+    }
+
+    return data;
   };
 
   handleChange = name => event => {
@@ -99,6 +113,11 @@ class App extends Component {
   };
 
   render() {
+    let data;
+    if (this.state.isLoggedIn) {
+      data = this.getAccountInfo();
+    }
+
     return (
       <div className="App">
         <Grow in={this.state.isLoggedIn}>
@@ -138,7 +157,7 @@ class App extends Component {
               <div className="formInputContainer">
                 <TextField
                   id="outlined-name"
-                  label="Red"
+                  label="Red Qty"
                   className="textField formText"
                   value={this.state.red}
                   onChange={this.handleChange("red")}
@@ -148,7 +167,7 @@ class App extends Component {
                 
                 <TextField
                   id="outlined-name"
-                  label="Blue"
+                  label="Blue Qty"
                   className="textField formText"
                   value={this.state.blue}
                   onChange={this.handleChange("blue")}
@@ -173,9 +192,35 @@ class App extends Component {
 
         { this.state.isLoggedIn &&
         <div className="accountRoot">
-          <Paper elevation={1}>
-            Hi
-          </Paper>
+          <div className="accountDiv">
+
+          </div>
+
+          <div className="accountDiv">
+            <Paper>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Prescription</TableCell>
+                    <TableCell align="right">Dosage</TableCell>
+                    <TableCell align="right">Renewal</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Red</TableCell>
+                    <TableCell align="right">{data.prescription.red}</TableCell>
+                    <TableCell align="right">Shoop</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Blue</TableCell>
+                    <TableCell align="right">{data.prescription.blue}</TableCell>
+                    <TableCell align="right">Whoop</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </Paper>
+          </div>
         </div>
         }
 

@@ -68,4 +68,15 @@
 .accountRoot {
   height: 100vh;
   display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.accountDiv {
+  margin-top: 20px;
+  width: 45vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
