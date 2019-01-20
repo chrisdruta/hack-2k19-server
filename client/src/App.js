@@ -214,12 +214,12 @@ class App extends Component {
                 <TableBody>
                   <TableRow>
                     <TableCell>Red</TableCell>
-                    <TableCell align="right">{data.prescription.red ? data.prescription.red : null}</TableCell>
+                    <TableCell align="right">{data ? data.prescription.red : null}</TableCell>
                     <TableCell align="right">Shoop</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Blue</TableCell>
-                    <TableCell align="right">{data.prescription.blue ? data.prescription.blue : null}</TableCell>
+                    <TableCell align="right">{data ? data.prescription.blue : null}</TableCell>
                     <TableCell align="right">Whoop</TableCell>
                   </TableRow>
                 </TableBody>
