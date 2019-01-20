@@ -26,7 +26,7 @@ app.get('/prescription', (req, res) => {
     });
   }
 
-  const username = base64.decode(req.headers['x-auth']);
+  const username = base64.decode(req.headers['x-auth']).toLowerCase();
 
   User.findOne({username: username}, (err, user) => {
     if (err)
@@ -65,7 +65,7 @@ app.post('/prescription', (req, res) => {
       error: "Not a proper prescription"
     });
 
-  const username = base64.decode(req.headers['x-auth']);
+  const username = base64.decode(req.headers['x-auth']).toLowerCase();
   User.findOne({username: username}, (err, user) => {
     if (err)
       return res.status(401).json({
@@ -102,7 +102,7 @@ app.get('/logs', (req, res) => {
     });
   }
 
-  const username = base64.decode(req.headers['x-auth']);
+  const username = base64.decode(req.headers['x-auth']).toLowerCase();
 
   User.findOne({username: username}, (err, user) => {
     if (err)
@@ -137,7 +137,7 @@ app.post('/logs', (req, res) => {
       error: "Missing required attributes for log object"
     })
 
-  const username = base64.decode(req.headers['x-auth']);
+  const username = base64.decode(req.headers['x-auth']).toLowerCase();
 
   User.findOne({username: username}, (err, user) => {
     if (err)
@@ -182,7 +182,7 @@ app.get('/machineTotals', (req, res) => {
     });
   }
 
-  const username = base64.decode(req.headers['x-auth']);
+  const username = base64.decode(req.headers['x-auth']).toLowerCase();
 
   User.findOne({username: username}, (err, user) => {
     if (err)
