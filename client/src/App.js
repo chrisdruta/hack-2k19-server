@@ -15,6 +15,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import Plot from 'react-plotly.js';
 
 import logo from "./logo_v1.png";
 
@@ -91,7 +92,7 @@ class App extends Component {
   };
 
   handleLogout = () => {
-    this.setState({isLoggedIn: false, name: "demo", red: "", blue: ""});
+    this.setState({isLoggedIn: false, name: "demo", red: "", blue: "", data: null});
   };
 
   handleRegister = async () => {
@@ -119,6 +120,19 @@ class App extends Component {
       this.getAccountInfo()
       .then((res) => {this.setState({data: res})})
       .catch(err => {console.log(err)})
+    }
+
+    let plotData = null;
+    if (this.state.data) {
+      console.log(this.state.data)
+      let totalR = 0;
+      let totalB = 0;
+      for (let log of this.state.data.logs) {
+        console.log(log)
+        totalR += log.red;
+        totalB += log.blue;
+      }
+      plotData = {type: 'bar', x: ['Red', 'Blue'], y: [totalR, totalB]}
     }
 
     return (
@@ -196,7 +210,20 @@ class App extends Component {
         { this.state.isLoggedIn &&
         <div className="accountRoot">
           <div className="accountDiv">
-
+            <Paper className="plotPaper">
+              <Plot
+                data={[plotData]}
+                layout={{
+                  title: 'Total Pills Taken',
+                  xaxis: {
+                    title: "Pill Type"
+                  },
+                  yaxis: {
+                    title: "Number of Pills"
+                  }
+                }}
+              />
+            </Paper>
           </div>
 
           <div className="accountDiv">
