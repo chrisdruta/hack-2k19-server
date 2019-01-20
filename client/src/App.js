@@ -224,7 +224,9 @@ class App extends Component {
                     title: "Pill Type"
                   },
                   yaxis: {
-                    title: "Number of Pills"
+                    title: "Number of Pills",
+                    autotick: false,
+                    tick0: 0
                   }
                 }}
               />
