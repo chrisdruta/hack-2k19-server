@@ -104,6 +104,7 @@ app.get('/logs', (req, res) => {
   }
 
   const username = base64.decode(req.headers['x-auth']);
+  console.log(username)
 
   User.findOne({username: username}, (err, user) => {
     if (err)
