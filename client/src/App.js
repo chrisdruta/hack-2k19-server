@@ -218,7 +218,7 @@ class App extends Component {
                   </TableRow>
                   <TableRow>
                     <TableCell>Blue</TableCell>
-                    <TableCell align="right">{this.state.data ? this.data.prescription.blue : null}</TableCell>
+                    <TableCell align="right">{this.state.data ? this.state.data.prescription.blue : null}</TableCell>
                     <TableCell align="right">Whoop</TableCell>
                   </TableRow>
                 </TableBody>
