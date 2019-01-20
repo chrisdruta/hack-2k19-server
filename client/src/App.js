@@ -1,37 +1,184 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import Grow from '@material-ui/core/Grow';
+import Divider from '@material-ui/core/Divider';
+
+import logo from "./logo_v1.png";
+
+const base64 = require('base-64');
 
 class App extends Component {
-state = {
-    data: null
+
+  state = {
+    isLoggedIn: false,
+    name: "demo",
+    red: "",
+    blue: ""
   };
 
   componentDidMount() {
-      // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
-      .catch(err => console.log(err));
+    // Call our fetch function below once the component mounts
+    // this.callBackendAPI()
+    //   .then(res => this.setState({ data: res.express }))
+    //   .catch(err => console.log(err));
   }
-    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-  callBackendAPI = async () => {
-    const response = await fetch('/express_backend');
-    const body = await response.json();
 
-    if (response.status !== 200) {
-      throw Error(body.message) 
+  getAccountInfo = async () => {
+
+    
+
+    const headers =  {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-auth': base64.encode(this.state.name)
+    };
+
+    let response = await fetch("/logs", {
+      method: "GET",
+      headers: headers
+    });
+
+    if (response.status === 200) {
+      const body = await response.json();
+      return body.logs;
     }
-    return body;
+    else {
+      return [];
+    }
+  };
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  handleLogin = async () => {
+    const response = await fetch("/login", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({username: this.state.username })
+    });
+
+    if (response.status === 200) {
+      this.setState({isLoggedIn: true});
+    }
+  };
+
+  handleLogout = () => {
+    this.setState({isLoggedIn: false});
+  };
+
+  handleRegister = async () => {
+    const response = await fetch("/register", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        red: this.state.red ? this.state.red : 1,
+        blue: this.state.blue ? this.state.blue : 1
+      })
+    });
+
+    if (response.status === 201) {
+      this.setState({isLoggedIn: true});
+    }
   };
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">{this.state.data}</p>
+        <Grow in={this.state.isLoggedIn}>
+          <AppBar position="static">
+            <Toolbar>
+              <div className="grow"></div>
+              <Typography variant="h4" color="inherit" align="center">
+                Pill Bot
+              </Typography>
+              <div className="grow"></div>
+              <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
+            </Toolbar>
+          </AppBar>
+        </Grow>
+
+        { !this.state.isLoggedIn &&
+        <div className="loginRoot">
+          <div align="center">
+            <img alt="logo"  className="logo" src={logo}/>
+          </div>
+          <Paper elevation={5} className="paper">
+            <form noValidate autoComplete="off" className="form">
+              <TextField
+                id="outlined-name"
+                label="Name"
+                className="textField"
+                value={this.state.name}
+                onChange={this.handleChange("name")}
+                margin="normal"
+                variant="outlined"
+              />
+
+              <br/>
+              <Typography variant="caption" align="left">Prescription</Typography>
+
+              <Divider variant="fullWidth" className="divider"/>
+              <div className="formInputContainer">
+                <TextField
+                  id="outlined-name"
+                  label="Red"
+                  className="textField formText"
+                  value={this.state.red}
+                  onChange={this.handleChange("red")}
+                  margin="normal"
+                  variant="outlined"
+                />
+                
+                <TextField
+                  id="outlined-name"
+                  label="Blue"
+                  className="textField formText"
+                  value={this.state.blue}
+                  onChange={this.handleChange("blue")}
+                  margin="normal"
+                  variant="outlined"
+                />
+              </div>
+              <br/>
+              <div className="formButtonContainer">
+                <Button variant="contained" color="primary" onClick={this.handleLogin}>
+                  Login
+                </Button>
+                <Button variant="contained" color="primary" onClick={this.handleRegister}>
+                  Register
+                </Button>
+              </div>
+              <br/>
+            </form>
+          </Paper>
+        </div>
+        }
+
+        { this.state.isLoggedIn &&
+        <div className="accountRoot">
+          <Paper elevation={1}>
+            Hi
+          </Paper>
+        </div>
+        }
+
       </div>
     );
   }

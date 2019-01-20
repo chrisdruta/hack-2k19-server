@@ -1,32 +1,71 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
+  flex-grow: 1;
+  background-color: #e8eaf6;
+  height: 100vh;
   min-height: 100vh;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.loginRoot {
+  max-width: 35%;
+  margin: auto;
+}
+
+.logo {
+  width: 60%;
+  align-self: center;
+}
+
+.title {
+  padding-top: 0px;
+}
+
+.paper {
+  padding: 20px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.textField {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.divider {
+  width: 100%;
+  align-self: center;
+}
+
+.formTextInput {
+  max-width: 30%;
+}
+
+.formInputContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.formButtonContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.formText {
+  max-width: 40%;
+}
+
+.accountRoot {
+  height: 100vh;
+  display: flex;
 }
