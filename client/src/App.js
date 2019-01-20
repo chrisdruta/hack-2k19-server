@@ -26,7 +26,8 @@ class App extends Component {
     isLoggedIn: false,
     name: "demo",
     red: "",
-    blue: ""
+    blue: "",
+    data: null
   };
 
   getAccountInfo = async () => {
@@ -64,7 +65,7 @@ class App extends Component {
       data.prescription.red = body.red;
       data.prescription.blue = body.blue;
     }
-    console.log("done")
+
     return data;
   };
 
@@ -113,15 +114,13 @@ class App extends Component {
   };
 
   render() {
-    var data;
     if (this.state.isLoggedIn) {
       //data = await this.getAccountInfo();
       this.getAccountInfo()
-      .then((res) => {console.log(res)})
+      .then((res) => {this.setState({data: res})})
       .catch(err => {console.log(err)})
       // console.log(data)
     }
-
 
     return (
       <div className="App">
@@ -214,12 +213,12 @@ class App extends Component {
                 <TableBody>
                   <TableRow>
                     <TableCell>Red</TableCell>
-                    <TableCell align="right">{data ? data.prescription.red : null}</TableCell>
+                    <TableCell align="right">{this.state.data ? this.state.data.prescription.red : null}</TableCell>
                     <TableCell align="right">Shoop</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Blue</TableCell>
-                    <TableCell align="right">{data ? data.prescription.blue : null}</TableCell>
+                    <TableCell align="right">{this.state.data ? this.data.prescription.blue : null}</TableCell>
                     <TableCell align="right">Whoop</TableCell>
                   </TableRow>
                 </TableBody>
