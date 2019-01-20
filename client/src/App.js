@@ -123,12 +123,13 @@ class App extends Component {
     }
 
     let plotData = null;
+    let prescription = "You still need to take your daily pills."
     if (this.state.data) {
-      console.log(this.state.data)
       let totalR = 0;
       let totalB = 0;
       for (let log of this.state.data.logs) {
-        console.log(log)
+        if (log.isPrescription)
+          prescription = "All caught up on daily pills!"
         totalR += log.red;
         totalB += log.blue;
       }
@@ -210,6 +211,10 @@ class App extends Component {
         { this.state.isLoggedIn &&
         <div className="accountRoot">
           <div className="accountDiv">
+            <Paper className="welcomePaper">
+              <Typography variant="h4">Hello, {this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1)}!</Typography>
+            </Paper>
+            <br/>
             <Paper className="plotPaper">
               <Plot
                 data={[plotData]}
@@ -250,6 +255,13 @@ class App extends Component {
                 </TableBody>
               </Table>
             </Paper>
+            <br/>   
+            <Paper className="welcomePaper">
+              <Typography variant="h4">Todo</Typography>
+              <Divider/>
+              <Typography variant="h5" style={{paddingTop: "10px"}}>{prescription}</Typography>
+            </Paper>
+
           </div>
         </div>
         }

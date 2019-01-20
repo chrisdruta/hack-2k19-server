@@ -78,11 +78,16 @@
   height: 70vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  
 }
 
 .plotPaper {
   display: flex;
   flex-direction: column;
+  padding: 10px;
+  padding-bottom: 400px;
+}
+
+.welcomePaper {
   padding: 10px;
 }
