@@ -81,7 +81,7 @@ class App extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({username: this.state.username })
+      body: JSON.stringify({username: this.state.name })
     });
 
     if (response.status === 200) {
@@ -101,7 +101,7 @@ class App extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: this.state.username,
+        username: this.state.name,
         red: this.state.red ? this.state.red : 1,
         blue: this.state.blue ? this.state.blue : 1
       })
