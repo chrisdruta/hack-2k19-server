@@ -95,7 +95,6 @@ app.post('/prescription', (req, res) => {
 });
 
 app.get('/logs', (req, res) => {
-  console.log(req.headers);
   if (!req.headers['x-auth']) {
     return res.status(401).json({
       success: false,
@@ -104,7 +103,6 @@ app.get('/logs', (req, res) => {
   }
 
   const username = base64.decode(req.headers['x-auth']);
-  console.log(username)
 
   User.findOne({username: username}, (err, user) => {
     if (err)
