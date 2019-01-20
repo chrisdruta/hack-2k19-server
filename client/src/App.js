@@ -64,7 +64,7 @@ class App extends Component {
       data.prescription.red = body.red;
       data.prescription.blue = body.blue;
     }
-
+    console.log("done")
     return data;
   };
 
@@ -116,7 +116,10 @@ class App extends Component {
     var data;
     if (this.state.isLoggedIn) {
       data = this.getAccountInfo();
+      console.log("render")
+      console.log(data)
     }
+
 
     return (
       <div className="App">
