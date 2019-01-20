@@ -113,7 +113,7 @@ class App extends Component {
   };
 
   render() {
-    let data;
+    var data;
     if (this.state.isLoggedIn) {
       data = this.getAccountInfo();
     }
