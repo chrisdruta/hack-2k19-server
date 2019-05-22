@@ -14,4 +14,11 @@ Backend and frontend for Alexa controlled pill dispensing hackathon project - wo
 
 ## Demo
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/iWWUu2R69qc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Pill Bot Demo](https://i.imgur.com/mGkHiGA.jpg)](https://youtu.be/iWWUu2R69qc "Everything Is AWESOME")
+
+## Team
+
+* Me
+* [Joel Berkson](https://github.com/jdberkson)
+* [Scott Mer](https://github.com/scott-mer)
+* Sam Celaya
